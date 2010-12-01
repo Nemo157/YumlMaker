@@ -67,4 +67,5 @@ e.g.:
           bg: orange
 
 
-generates `[http://yuml.me/diagram/class/[﹤﹤IDefinition﹥﹥|Type : ﹤﹤IType﹥﹥;Length : Integer],[﹤﹤IEntity﹥﹥]^[﹤﹤IDefinition﹥﹥],[﹤﹤IDefinition﹥﹥]+-0..* Children>[﹤﹤IDefinition﹥﹥],[﹤﹤IDefinition﹥﹥]+-0..1 Parent>[﹤﹤IDefinition﹥﹥],[﹤﹤IDefinition﹥﹥]+-1 Type>[Enum;DefinitionType],[ObjectIdentifier],[﹤﹤ISnmpData﹥﹥]^[ObjectIdentifier],[Variable{bg:orange}],[Variable]++-1 >[ObjectIdentifier],[Variable]++-1 >[﹤﹤ISnmpData﹥﹥].](http://yuml.me/diagram/class/[﹤﹤IDefinition﹥﹥|Type : ﹤﹤IType﹥﹥;Length : Integer],[﹤﹤IEntity﹥﹥]^[﹤﹤IDefinition﹥﹥],[﹤﹤IDefinition﹥﹥]+-0..* Children>[﹤﹤IDefinition﹥﹥],[﹤﹤IDefinition﹥﹥]+-0..1 Parent>[﹤﹤IDefinition﹥﹥],[﹤﹤IDefinition﹥﹥]+-1 Type>[Enum;DefinitionType],[ObjectIdentifier],[﹤﹤ISnmpData﹥﹥]^[ObjectIdentifier],[Variable{bg:orange}],[Variable]++-1 >[ObjectIdentifier],[Variable]++-1 >[﹤﹤ISnmpData﹥﹥].)`
+generates [this](http://bit.ly/ewrwKo)
+    http://yuml.me/diagram/class/[﹤﹤IDefinition﹥﹥|Type : ﹤﹤IType﹥﹥;Length : Integer],[﹤﹤IEntity﹥﹥]^[﹤﹤IDefinition﹥﹥],[﹤﹤IDefinition﹥﹥]+-0..* Children>[﹤﹤IDefinition﹥﹥],[﹤﹤IDefinition﹥﹥]+-0..1 Parent>[﹤﹤IDefinition﹥﹥],[﹤﹤IDefinition﹥﹥]+-1 Type>[Enum;DefinitionType],[ObjectIdentifier],[﹤﹤ISnmpData﹥﹥]^[ObjectIdentifier],[Variable{bg:orange}],[Variable]++-1 >[ObjectIdentifier],[Variable]++-1 >[﹤﹤ISnmpData﹥﹥].
