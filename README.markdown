@@ -5,9 +5,13 @@ Currently only supports what I have needed it to support, as I need to add more 
 See LICENSE for the licensing info.
 
 Current YAML format:
+    imports:
+      - <first file>
+      - <second file>
     
-    - class:
-        name: <name>
+    
+    classes:
+      - name: <name>
         bases:
           - <superclasses>
           - <or interfaces>
@@ -29,43 +33,15 @@ Current YAML format:
           - <last property>
         styles: 
           bg: orange
+          
+      - name: <other class name>
+        .
+        .
+        .
         
             
-e.g.:
-    
-    - class:
-        name: ﹤﹤IDefinition﹥﹥
-        aggregations:
-          - name: ﹤﹤IDefinition﹥﹥
-            num: 0..*
-            title: Children
-          - name: ﹤﹤IDefinition﹥﹥
-            num: 0..1
-            title: Parent
-          - name: Enum;DefinitionType
-            num: 1
-            title: Type
-        bases:
-          - ﹤﹤IEntity﹥﹥
-        properties:
-          - "Type : ﹤﹤IType﹥﹥"
-          - "Length : Integer"
-          
-    - class:
-        name: ObjectIdentifier
-        bases:
-          - ﹤﹤ISnmpData﹥﹥
+To view the example replace `<path>` in `Example\sharpsnmp.yaml` with the path to this directory, then copy-paste that file into the textbox on the left and hit refresh.  This should generate
+    http://yuml.me/diagram/class/[﹤﹤IObjectTree﹥﹥],[﹤﹤IObjectRegistry﹥﹥],[ObjectRegistryBase],[DefaultObjectRegistry],[ReloadableObjectRegistry],[﹤﹤IDefinition﹥﹥],[Definition],[Enum;DefinitionType|Unknown;OidValueAssignment;Scalar;Table;Entry;Column],[ObjectIdentifier],[Variable],[﹤﹤ITypeAssignment﹥﹥],[ValueRange{bg:green}],[Macro],[Choice],[IntegerType;Was Integer{bg:orange}],[Sequence],[TypeAssignment],[OctetStringType{bg:green}],[BitsType{bg:green}],[﹤﹤IConstruct﹥﹥],[﹤﹤IEntity﹥﹥],[ObjectType],[Symbol{bg:orange}],[TextualConvention{bg:orange}],[MibModule{bg:orange}],[Lexer{bg:orange}],[﹤﹤IObjectTree﹥﹥]++-1>[﹤﹤IDefinition﹥﹥],[﹤﹤IObjectRegistry﹥﹥]++-1>[﹤﹤IObjectTree﹥﹥],[﹤﹤IObjectRegistry﹥﹥]^[ObjectRegistryBase],[ObjectRegistryBase]^[DefaultObjectRegistry],[ObjectRegistryBase]^[ReloadableObjectRegistry],[﹤﹤IEntity﹥﹥]^[﹤﹤IDefinition﹥﹥],[﹤﹤IDefinition﹥﹥]+-0..* Children>[﹤﹤IDefinition﹥﹥],[﹤﹤IDefinition﹥﹥]+-0..1 Parent>[﹤﹤IDefinition﹥﹥],[﹤﹤IDefinition﹥﹥]+-1 Type>[Enum;DefinitionType],[﹤﹤IDefinition﹥﹥]^[Definition],[﹤﹤ISnmpData﹥﹥]^[ObjectIdentifier],[Variable]++-1>[ObjectIdentifier],[Variable]++-1>[﹤﹤ISnmpData﹥﹥],[﹤﹤IConstruct﹥﹥]^[﹤﹤ITypeAssignment﹥﹥],[﹤﹤ITypeAssignment﹥﹥]^[Macro],[﹤﹤ITypeAssignment﹥﹥]^[Choice],[﹤﹤ITypeAssignment﹥﹥]^[IntegerType;Was Integer],[IntegerType;Was Integer]++-0..*>[ValueRange],[﹤﹤ITypeAssignment﹥﹥]^[Sequence],[﹤﹤ITypeAssignment﹥﹥]^[TypeAssignment],[﹤﹤ITypeAssignment﹥﹥]^[OctetStringType],[OctetStringType]++-0..*>[ValueRange],[﹤﹤ITypeAssignment﹥﹥]^[BitsType],[﹤﹤IConstruct﹥﹥]^[﹤﹤IEntity﹥﹥],[﹤﹤IEntity﹥﹥]^[ObjectType],[﹤﹤IConstruct﹥﹥]^[TextualConvention].
+In the right-hand textbox and load [http://bit.ly/ev2xq3](http://bit.ly/ev2xq3) in the browser.
 
-    - class:
-        name: Variable
-        compositions:
-          - name: ObjectIdentifier
-            num: 1
-          - name: ﹤﹤ISnmpData﹥﹥
-            num: 1
-        styles: 
-          bg: orange
-
-
-generates [this](http://bit.ly/ewrwKo)
-    http://yuml.me/diagram/class/[﹤﹤IDefinition﹥﹥|Type : ﹤﹤IType﹥﹥;Length : Integer],[﹤﹤IEntity﹥﹥]^[﹤﹤IDefinition﹥﹥],[﹤﹤IDefinition﹥﹥]+-0..* Children>[﹤﹤IDefinition﹥﹥],[﹤﹤IDefinition﹥﹥]+-0..1 Parent>[﹤﹤IDefinition﹥﹥],[﹤﹤IDefinition﹥﹥]+-1 Type>[Enum;DefinitionType],[ObjectIdentifier],[﹤﹤ISnmpData﹥﹥]^[ObjectIdentifier],[Variable{bg:orange}],[Variable]++-1 >[ObjectIdentifier],[Variable]++-1 >[﹤﹤ISnmpData﹥﹥].
+For some reason loading the image in the built-in browser doesn't seem to work, for now you can just copy-paste the URL to your own browser to view the image.

@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Navigation;
 using System.Windows.Threading;
+using YaTools.Yaml;
 
 namespace YumlMaker
 {
@@ -15,41 +16,21 @@ namespace YumlMaker
     public partial class MainWindow : Window
     {
         static string baseUrl = "http://yuml.me/diagram/class/";
-        DispatcherTimer _timer;
-        string _url;
 
         public MainWindow()
         {
             InitializeComponent();
-            _timer = new DispatcherTimer(TimeSpan.FromSeconds(30), DispatcherPriority.Background, _timer_Elapsed, this.Dispatcher);
-            _timer.Stop();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //refreshButton.IsEnabled = false;
             var url = ConstructUrl(textBox.Text);
             if (url == null)
             {
-                refreshButton.IsEnabled = true;
                 return;
             }
             urlBox.Text = url;
-            //displayBox.Navigate(url);
-            _url = url;
-            //_timer.Start();
-        }
-
-        void _timer_Elapsed(object sender, EventArgs e)
-        {
-            displayBox.Navigate("about:blank");
-            mshtml.IHTMLDocument2 doc = displayBox.Document as mshtml.IHTMLDocument2;
-            doc.clear();
-            doc.writeln("<h3>There was an error loading the page.  Please retry or visit the following URL.</h3><p>URL:</p><p><code>" + _url + "</code></p>");
-            doc.close();
-            refreshButton.IsEnabled = true;
-            progressBar.IsIndeterminate = false;
-            _timer.Stop();
+            displayBox.Navigate(url);
         }
 
         private void displayBox_Navigating(object sender, NavigatingCancelEventArgs e)
@@ -59,79 +40,62 @@ namespace YumlMaker
 
         private void displayBox_LoadCompleted(object sender, NavigationEventArgs e)
         {
-            refreshButton.IsEnabled = true;
             progressBar.IsIndeterminate = false;
-            _timer.Stop();
         }
 
         private string ConstructUrl(string input)
         {
-            IList<IDictionary> yaml;
+            var classes = GetClasses(YaTools.Yaml.YamlLanguage.StringTo<IDictionary>(input));
 
-            try
-            {
-                yaml = new List<IDictionary>();
-                foreach (IDictionary dict in (IList)YaTools.Yaml.YamlLanguage.StringTo(input))
-                {
-                    yaml.Add(dict);
-                }
-            }
-            catch  (Exception ex)
-            {
-                MessageBox.Show(this, ex.Message);
-                return null;
-            }
+            var mainPart = classes
+                            .Select(klass => klass.ToMainPart())
+                            .Where(part => !string.IsNullOrEmpty(part))
+                            .Aggregate((acc, next) => String.Format("{0},{1}", acc, next));
+
+            var restPart = classes
+                            .Select(klass => klass.ToRestPart())
+                            .Where(part => !string.IsNullOrEmpty(part))
+                            .Aggregate((acc, next) => String.Format("{0},{1}", acc, next));
 
             var builder = new StringBuilder();
-
             builder.Append(baseUrl);
-
-            builder.Append(
-                yaml
-                    .Select(dict => new Class(dict["class"] as IDictionary))
-                    .Select(klass => klass.ToUrlPart())
-                    .Aggregate((acc, next) => String.Format("{0},{1}", acc, next))
-            );
+            builder.Append(mainPart);
+            if (!string.IsNullOrEmpty(restPart))
+            {
+                builder.Append("," + restPart);
+            }
 
             builder.Append(".");
             return builder.ToString();
         }
 
-        private static void ConstructClassString(StringBuilder builder, IDictionary node)
+        private static IEnumerable<Class> GetClasses(IDictionary yaml)
         {
-            var name = (String)node["name"];
-            var props = (IList)node["properties"];
-            var meths = (IList)node["methods"];
+            return GetClassesYaml(yaml)
+                .Where(dict => dict != null)
+                .Select(dict => new Class(dict));
+        }
 
-            builder.Append("[");
+        private static IEnumerable<IDictionary> GetClassesYaml(IDictionary yaml)
+        {
+            var classesYaml = new List<IDictionary>();
 
-            builder.Append(name);
-
-            if (props != null && props.Count > 0)
+            if (yaml.Contains("imports"))
             {
-                builder.Append("|");
-                foreach (String prop in props)
+                foreach (string import in (yaml["imports"] as IList))
                 {
-                    builder.Append(prop);
-                    builder.Append(";");
+                    classesYaml.AddRange(GetClassesYaml(YamlLanguage.FileTo<IDictionary>(import)));
                 }
-                builder.Remove(builder.Length - 1, 1);
             }
 
-            if (meths != null && meths.Count > 0)
+            if (yaml.Contains("classes"))
             {
-                if (props == null || props.Count == 0)
-                    builder.Append("|");
-
-                builder.Append("|");
-                foreach (String meth in meths)
+                foreach (IDictionary classYaml in (yaml["classes"] as IList))
                 {
-                    builder.Append(meth);
-                    builder.Append(";");
+                    classesYaml.Add(classYaml);
                 }
-                builder.Remove(builder.Length - 1, 1);
             }
-            builder.Append("]");
+            return classesYaml;
         }
     }
 }

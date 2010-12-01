@@ -1,0 +1,48 @@
+﻿classes:
+  - name: ﹤﹤ITypeAssignment﹥﹥
+    bases:
+      - ﹤﹤IConstruct﹥﹥
+
+  - name: ValueRange
+    styles:
+      bg: green
+
+  - name: Macro
+    bases:
+      - ﹤﹤ITypeAssignment﹥﹥
+
+  - name: Choice
+    bases:
+      - ﹤﹤ITypeAssignment﹥﹥
+
+  - name: IntegerType;Was Integer
+    bases:
+      - ﹤﹤ITypeAssignment﹥﹥
+    styles:
+      bg: orange
+    compositions:
+      - name: ValueRange
+        num: 0..*
+
+  - name: Sequence
+    bases:
+      - ﹤﹤ITypeAssignment﹥﹥
+
+  - name: TypeAssignment
+    bases:
+      - ﹤﹤ITypeAssignment﹥﹥
+
+  - name: OctetStringType
+    bases:
+      - ﹤﹤ITypeAssignment﹥﹥
+    styles:
+      bg: green
+    compositions:
+      - name: ValueRange
+        num: 0..*
+
+  - name: BitsType
+    bases:
+      - ﹤﹤ITypeAssignment﹥﹥
+    styles:
+      bg: green

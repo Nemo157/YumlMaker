@@ -6,13 +6,15 @@
         <Grid Grid.IsSharedSizeScope="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <TextBox Name="textBox" Grid.Column="0" AcceptsReturn="True" AcceptsTab="True" FontFamily="Consolas" />
-            <DockPanel Grid.Column="1">
+            <GridSplitter HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Column="1" ResizeBehavior="PreviousAndNext" Width="3" Background="#FFBCBCBC" />
+            <DockPanel Grid.Column="2">
                 <Button Name="refreshButton" DockPanel.Dock="Top" Click="Button_Click">Refresh</Button>
                 <ProgressBar Name="progressBar"  DockPanel.Dock="Top" Height="10" />
-                <TextBox Name="urlBox" DockPanel.Dock="Top" Height="50" />
+                <TextBox Name="urlBox" DockPanel.Dock="Top" TextWrapping="Wrap" />
                 <WebBrowser Name="displayBox" Navigating="displayBox_Navigating" LoadCompleted="displayBox_LoadCompleted" />
             </DockPanel>
         </Grid>

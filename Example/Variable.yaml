@@ -1,0 +1,11 @@
+﻿classes:
+  - name: ObjectIdentifier
+    bases:
+      - ﹤﹤ISnmpData﹥﹥
+
+  - name: Variable
+    compositions:
+      - name: ObjectIdentifier
+        num: 1
+      - name: ﹤﹤ISnmpData﹥﹥
+        num: 1

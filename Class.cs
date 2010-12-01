@@ -70,23 +70,30 @@ namespace YumlMaker
             }
         }
 
-        public string ToUrlPart()
+        public string ToMainPart()
+        {
+            return this.GenMainPart();
+        }
+
+        public string ToRestPart()
         {
             var s = new StringBuilder();
-            var mainPart = this.GenMainPart();
             var basesPart = this.GenBasesPart();
-            var compositionsPart = this.GenRelationshipPart();
-
-            s.AppendFormat("{0}", mainPart);
+            var relationshipsPart = this.GenRelationshipPart();
 
             if (!String.IsNullOrEmpty(basesPart))
             {
-                s.AppendFormat(",{0}", basesPart);
+                s.AppendFormat("{0}", basesPart);
             }
 
-            if (!String.IsNullOrEmpty(compositionsPart))
+            if (!String.IsNullOrEmpty(basesPart) && !String.IsNullOrEmpty(relationshipsPart))
             {
-                s.AppendFormat(",{0}", compositionsPart);
+                s.Append(",");
+            }
+
+            if (!String.IsNullOrEmpty(relationshipsPart))
+            {
+                s.AppendFormat("{0}", relationshipsPart);
             }
 
             return s.ToString();
@@ -183,7 +190,7 @@ namespace YumlMaker
 
         internal virtual string ToUrlPart(string baseName)
         {
-            return string.Format("[{0}]{1}-{2}{3}>[{4}]", baseName, this.StartString(), this.num, String.IsNullOrEmpty(num) ? this.title : " " + this.title, this.name);
+            return string.Format("[{0}]{1}-{2}{3}>[{4}]", baseName, this.StartString(), this.num, String.IsNullOrEmpty(this.num) || String.IsNullOrEmpty(this.title) ? this.title : " " + this.title, this.name);
         }
 
         protected abstract string StartString();

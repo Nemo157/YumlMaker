@@ -1,0 +1,49 @@
+﻿classes:
+  - name: ﹤﹤IObjectTree﹥﹥
+    compositions:
+      - name: ﹤﹤IDefinition﹥﹥
+        num: 1
+
+  - name: ﹤﹤IObjectRegistry﹥﹥
+    compositions:
+      - name: ﹤﹤IObjectTree﹥﹥
+        num: 1
+
+  - name: ObjectRegistryBase
+    bases:
+      - ﹤﹤IObjectRegistry﹥﹥
+
+  - name: DefaultObjectRegistry
+    bases:
+      - ObjectRegistryBase
+
+  - name: ReloadableObjectRegistry
+    bases:
+      - ObjectRegistryBase
+
+  - name: ﹤﹤IDefinition﹥﹥
+    aggregations:
+      - name: ﹤﹤IDefinition﹥﹥
+        num: 0..*
+        title: Children
+      - name: ﹤﹤IDefinition﹥﹥
+        num: 0..1
+        title: Parent
+      - name: Enum;DefinitionType
+        num: 1
+        title: Type
+    bases:
+      - ﹤﹤IEntity﹥﹥
+
+  - name: Definition
+    bases:
+      - ﹤﹤IDefinition﹥﹥
+
+  - name: Enum;DefinitionType
+    properties:
+      - Unknown
+      - OidValueAssignment
+      - Scalar
+      - Table
+      - Entry
+      - Column

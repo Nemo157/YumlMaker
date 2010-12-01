@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("YumlMaker")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCopyright("Copyright 2010 Wim Looman")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
