@@ -2,6 +2,8 @@
   - name: ﹤﹤ITypeAssignment﹥﹥
     bases:
       - ﹤﹤IConstruct﹥﹥
+    styles:
+      bg: orange
 
   - name: ValueRange
     styles:
@@ -10,14 +12,18 @@
   - name: Macro
     bases:
       - ﹤﹤ITypeAssignment﹥﹥
+    styles:
+      bg: orange
 
   - name: Choice
     bases:
       - ﹤﹤ITypeAssignment﹥﹥
+    styles: 
+      bg: orange
 
   - name: IntegerType;Was Integer
     bases:
-      - ﹤﹤ITypeAssignment﹥﹥
+      - ﹤﹤AbstractTypeAssignment﹥﹥
     styles:
       bg: orange
     compositions:
@@ -27,22 +33,74 @@
   - name: Sequence
     bases:
       - ﹤﹤ITypeAssignment﹥﹥
+    styles:
+      bg: orange
 
   - name: TypeAssignment
     bases:
       - ﹤﹤ITypeAssignment﹥﹥
+    styles: 
+      bg: orange
 
   - name: OctetStringType
     bases:
-      - ﹤﹤ITypeAssignment﹥﹥
+      - ﹤﹤AbstractTypeAssignment﹥﹥
     styles:
       bg: green
     compositions:
       - name: ValueRange
         num: 0..*
 
-  - name: BitsType
+  - name: ﹤﹤AbstractTypeAssignment﹥﹥
     bases:
       - ﹤﹤ITypeAssignment﹥﹥
+    styles:
+      bg: green
+
+  - name: BitsType
+    bases:
+      - ﹤﹤AbstractTypeAssignment﹥﹥
+    styles:
+      bg: green
+
+  - name: Counter64Type
+    bases:
+      - ﹤﹤ITypeAssignment﹥﹥
+    styles:
+      bg: green
+
+  - name: IpAddressType
+    bases:
+      - ﹤﹤ITypeAssignment﹥﹥
+    styles:
+      bg: green
+
+  - name: ObjectIdentifierType
+    bases:
+      - ﹤﹤ITypeAssignment﹥﹥
+    styles:
+      bg: green
+
+  - name: UnsignedType
+    bases:
+      - ﹤﹤AbstractTypeAssignment﹥﹥
+    styles:
+      bg: green
+    compositions:
+      - name: ValueRange
+        num: 0..*
+
+  - name: TextualConvention
+    styles: 
+      bg: orange
+    bases:
+      - ﹤﹤ITypeAssignment﹥﹥
+    compositions:
+      - name: DisplayHint
+        num: 0..1
+      - name: Enum;Status
+        num: 1
+  
+  - name: DisplayHint
     styles:
       bg: green

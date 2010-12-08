@@ -3,15 +3,21 @@
     compositions:
       - name: ﹤﹤IDefinition﹥﹥
         num: 1
+    styles:
+      bg: orange
 
   - name: ﹤﹤IObjectRegistry﹥﹥
     compositions:
       - name: ﹤﹤IObjectTree﹥﹥
         num: 1
+    styles:
+      bg: orange
 
   - name: ObjectRegistryBase
     bases:
       - ﹤﹤IObjectRegistry﹥﹥
+    styles:
+      bg: orange
 
   - name: DefaultObjectRegistry
     bases:
@@ -34,10 +40,14 @@
         title: Type
     bases:
       - ﹤﹤IEntity﹥﹥
+    styles: 
+      bg: orange
 
   - name: Definition
     bases:
       - ﹤﹤IDefinition﹥﹥
+    styles:
+      bg: orange
 
   - name: Enum;DefinitionType
     properties:

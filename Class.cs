@@ -68,6 +68,15 @@ namespace YumlMaker
                     this.relationships.Add(new Aggregation(aggregationYaml));
                 }
             }
+
+            var yamlUses = klassYaml["uses"] as IList;
+            if (yamlUses != null)
+            {
+                foreach (IDictionary useYaml in yamlUses)
+                {
+                    this.relationships.Add(new Use(useYaml));
+                }
+            }
         }
 
         public string ToMainPart()
@@ -194,6 +203,19 @@ namespace YumlMaker
         }
 
         protected abstract string StartString();
+    }
+
+    class Use : Relationship
+    {
+        public Use(IDictionary yaml)
+            : base(yaml)
+        {
+        }
+
+        protected override string StartString()
+        {
+            return "";
+        }
     }
 
     class Aggregation : Relationship

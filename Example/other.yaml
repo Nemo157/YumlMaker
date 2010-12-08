@@ -1,0 +1,71 @@
+﻿classes:
+  - name: ﹤﹤IConstruct﹥﹥
+
+  - name: ﹤﹤IEntity﹥﹥
+    bases:
+      - ﹤﹤IConstruct﹥﹥
+
+  - name: ObjectType
+    bases:
+      - ﹤﹤IEntity﹥﹥
+    styles: 
+      bg: orange
+    compositions:
+      - name: Enum;MaxAccess
+        num: 1
+      - name: Enum;Status
+        num: 1
+  
+  - name: Enum;MaxAccess
+    properties:
+      - notAccessible
+      - accessibleForNotify
+      - readOnly
+      - readWrite
+      - readCreate
+    styles:
+      bg: green
+
+  - name: Enum;Status
+    properties:
+      - current
+      - deprecated
+      - obsolete
+      - mandatory
+      - optional
+    styles:
+      bg: green
+      
+  - name: Symbol
+    styles: 
+      bg: orange
+
+  - name: ﹤﹤IModule﹥﹥
+    compositions:
+      - name: ﹤﹤IEntity﹥﹥
+        num: 0..*
+        title: Entities
+      - name: ﹤﹤ITypeAssignment﹥﹥
+        num: 0..*
+        title: Types
+    styles:
+      bg: orange
+  
+  - name: MibModule
+    bases:
+      - ﹤﹤IModule﹥﹥
+    styles: 
+      bg: orange
+    uses:
+      - name: Lexer
+
+  - name: Lexer
+    styles: 
+      bg: orange
+    compositions:
+      - name: Symbol
+        num: 0..*
+
+  - name: Extensions
+    styles:
+      bg: green
