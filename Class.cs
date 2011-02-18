@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace YumlMaker
 {
@@ -12,11 +13,12 @@ namespace YumlMaker
         IDictionary<string, string> styles;
         IList<string> bases;
         IList<string> properties;
+        IList<string> methods;
         IList<Relationship> relationships;
 
         public Class(IDictionary klassYaml)
         {
-            this.name = (string)klassYaml["name"];
+            this.name = ((string)klassYaml["name"]).Escape();
 
             var yamlStyles = klassYaml["styles"] as IDictionary;
             if (yamlStyles != null)
@@ -24,7 +26,7 @@ namespace YumlMaker
                 this.styles = new Dictionary<string, string>();
                 foreach (DictionaryEntry pair in yamlStyles)
                 {
-                    this.styles.Add((string)pair.Key, (string)pair.Value);
+                    this.styles.Add(((string)pair.Key).Escape(), ((string)pair.Value).Escape());
                 }
 
             }
@@ -35,7 +37,7 @@ namespace YumlMaker
                 this.bases = new List<string>();
                 foreach (string s in yamlBases)
                 {
-                    this.bases.Add(s);
+                    this.bases.Add(s.Escape());
                 }
             }
 
@@ -45,7 +47,17 @@ namespace YumlMaker
                 this.properties = new List<string>();
                 foreach (string s in yamlProps)
                 {
-                    this.properties.Add(s);
+                    this.properties.Add(s.Escape());
+                }
+            }
+
+            var yamlMethods = klassYaml["methods"] as IList;
+            if (yamlMethods != null)
+            {
+                this.methods = new List<string>();
+                foreach (string s in yamlMethods)
+                {
+                    this.methods.Add(s.Escape());
                 }
             }
 
@@ -148,6 +160,12 @@ namespace YumlMaker
                     .Aggregate((acc, next) => String.Format("{0};{1}", acc, next));
             }
 
+            if (this.methods != null && this.methods.Count > 0)
+            {
+                methods = this.methods
+                    .Aggregate((acc, next) => String.Format("{0};{1}", acc, next));
+            }
+
             if (this.styles != null && this.styles.Count > 0)
             {
                 styles = String.Format("{{{0}}}",
@@ -190,11 +208,11 @@ namespace YumlMaker
 
         public Relationship(IDictionary yaml)
         {
-            this.name = (string)yaml["name"];
+            this.name = ((string)yaml["name"]).Escape();
 
-            this.num = (string)yaml["num"];
+            this.num = ((string)yaml["num"]).Escape();
 
-            this.title = (string)yaml["title"];
+            this.title = ((string)yaml["title"]).Escape();
         }
 
         internal virtual string ToUrlPart(string baseName)
@@ -241,6 +259,19 @@ namespace YumlMaker
         protected override string StartString()
         {
             return "++";
+        }
+    }
+
+    public static class Extensions
+    {
+        public static string Escape(this string p)
+        {
+            return p == null ? null
+                 : p.Replace('(', '（')
+                    .Replace(')', '）')
+                    .Replace('<', '＜')
+                    .Replace('>', '＞')
+                    .Replace(',', '，');
         }
     }
 }

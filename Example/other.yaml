@@ -49,19 +49,19 @@
         num: 0..*
         title: Types
     styles:
-      bg: orange
+      bg: cornsilk
   
   - name: MibModule
     bases:
       - ﹤﹤IModule﹥﹥
     styles: 
-      bg: orange
+      bg: cornsilk
     uses:
       - name: Lexer
 
   - name: Lexer
     styles: 
-      bg: orange
+      bg: cornsilk
     compositions:
       - name: Symbol
         num: 0..*

@@ -4,24 +4,14 @@
       - ﹤﹤IConstruct﹥﹥
     styles:
       bg: orange
-
-  - name: ValueRange
+  
+  - name: ﹤﹤AbstractTypeAssignment﹥﹥
+    bases:
+      - ﹤﹤ITypeAssignment﹥﹥
     styles:
       bg: green
 
-  - name: Macro
-    bases:
-      - ﹤﹤ITypeAssignment﹥﹥
-    styles:
-      bg: orange
-
-  - name: Choice
-    bases:
-      - ﹤﹤ITypeAssignment﹥﹥
-    styles: 
-      bg: orange
-
-  - name: IntegerType;Was Integer
+  - name: IntegerType
     bases:
       - ﹤﹤AbstractTypeAssignment﹥﹥
     styles:
@@ -30,15 +20,12 @@
       - name: ValueRange
         num: 0..*
 
-  - name: Sequence
-    bases:
-      - ﹤﹤ITypeAssignment﹥﹥
-    styles:
-      bg: orange
-
   - name: TypeAssignment
     bases:
-      - ﹤﹤ITypeAssignment﹥﹥
+      - ﹤﹤AbstractTypeAssignment﹥﹥
+    compositions:
+      - name: ValueRange
+        num: 0..*
     styles: 
       bg: orange
 
@@ -51,17 +38,42 @@
       - name: ValueRange
         num: 0..*
 
-  - name: ﹤﹤AbstractTypeAssignment﹥﹥
-    bases:
-      - ﹤﹤ITypeAssignment﹥﹥
-    styles:
-      bg: green
-
   - name: BitsType
     bases:
       - ﹤﹤AbstractTypeAssignment﹥﹥
     styles:
       bg: green
+
+  - name: UnsignedType
+    bases:
+      - ﹤﹤AbstractTypeAssignment﹥﹥
+    styles:
+      bg: green
+    compositions:
+      - name: ValueRange
+        num: 0..*
+
+  - name: ValueRange
+    styles:
+      bg: green
+
+  - name: Macro
+    bases:
+      - ﹤﹤ITypeAssignment﹥﹥
+    styles:
+      bg: cornsilk
+
+  - name: Choice
+    bases:
+      - ﹤﹤ITypeAssignment﹥﹥
+    styles: 
+      bg: cornsilk
+
+  - name: Sequence
+    bases:
+      - ﹤﹤ITypeAssignment﹥﹥
+    styles:
+      bg: orange
 
   - name: Counter64Type
     bases:
@@ -81,14 +93,9 @@
     styles:
       bg: green
 
-  - name: UnsignedType
-    bases:
-      - ﹤﹤AbstractTypeAssignment﹥﹥
+  - name: DisplayHint
     styles:
       bg: green
-    compositions:
-      - name: ValueRange
-        num: 0..*
 
   - name: TextualConvention
     styles: 
@@ -101,6 +108,3 @@
       - name: Enum;Status
         num: 1
   
-  - name: DisplayHint
-    styles:
-      bg: green

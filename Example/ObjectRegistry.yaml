@@ -4,6 +4,12 @@
       - name: ﹤﹤IDefinition﹥﹥
         num: 1
     styles:
+      bg: cornsilk
+  
+  - name: ObjectTree
+    bases: 
+      - ﹤﹤IObjectTree﹥﹥
+    styles:
       bg: orange
 
   - name: ﹤﹤IObjectRegistry﹥﹥
@@ -11,13 +17,13 @@
       - name: ﹤﹤IObjectTree﹥﹥
         num: 1
     styles:
-      bg: orange
+      bg: cornsilk
 
   - name: ObjectRegistryBase
     bases:
       - ﹤﹤IObjectRegistry﹥﹥
     styles:
-      bg: orange
+      bg: cornsilk
 
   - name: DefaultObjectRegistry
     bases:
@@ -28,7 +34,7 @@
       - ObjectRegistryBase
 
   - name: ﹤﹤IDefinition﹥﹥
-    aggregations:
+    compositions:
       - name: ﹤﹤IDefinition﹥﹥
         num: 0..*
         title: Children
@@ -38,16 +44,19 @@
       - name: Enum;DefinitionType
         num: 1
         title: Type
+      - name: ﹤﹤IEntity﹥﹥
+        num: 0..1
+        title: Entity
     bases:
       - ﹤﹤IEntity﹥﹥
     styles: 
-      bg: orange
+      bg: cornsilk
 
   - name: Definition
     bases:
       - ﹤﹤IDefinition﹥﹥
     styles:
-      bg: orange
+      bg: cornsilk
 
   - name: Enum;DefinitionType
     properties:
